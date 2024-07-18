@@ -21,8 +21,16 @@ public class EnemyScript : MonoBehaviour
 
     private void Move()
     {
+        if (transform.position.x > 4)
+        {
+            transform.rotation = Quaternion.Euler(0, 180 + 30, 0);
+        }
+        else if (transform.position.x < -4)
+        {
+            transform.rotation = Quaternion.Euler(0, 180 - 30, 0);
+        }
         Vector3 velocity = new Vector3(0, 0, moveSpeed * Time.deltaTime);
-        transform.position += transform.rotation*velocity;
+        transform.position += transform.rotation * velocity;
     }
 
     private void Spawn()
