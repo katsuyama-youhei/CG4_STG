@@ -78,7 +78,7 @@ public class PlayerScript : MonoBehaviour
 
     void Fire()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetAxis("Fire1")==1)
         {
             Vector3 position = transform.position;
             position.y += 0.8f;
