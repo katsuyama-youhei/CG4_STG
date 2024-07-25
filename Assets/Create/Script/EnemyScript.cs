@@ -6,16 +6,25 @@ public class EnemyScript : MonoBehaviour
 {
 
     public float moveSpeed = 1.0f;
+
+    private GameObject gameManager;
+    private GameManagerScript gameManagerScript;
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 5);
+        Destroy(gameObject, 7);
         Spawn();
+        gameManager = GameObject.Find("GameManager");
+        gameManagerScript = gameManager.GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gameManagerScript.IsGameOver())
+        {
+            return;
+        }
         Move();
     }
 

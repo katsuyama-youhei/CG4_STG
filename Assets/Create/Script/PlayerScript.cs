@@ -13,20 +13,33 @@ public class PlayerScript : MonoBehaviour
 
     private int bulletTimer = 0;
 
+    public GameObject gameManager;
+    private GameManagerScript gameManagerScript;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        gameManagerScript = gameManager.GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if ((gameManagerScript.IsGameOver()))
+        {
+            rb.velocity = Vector3.zero;
+            return;
+        }
         Move();
     }
 
     private void FixedUpdate()
     {
+        if ((gameManagerScript.IsGameOver()))
+        {
+            return;
+        }         
+        
         if (bulletTimer == 0)
         {
             Fire();
@@ -78,13 +91,22 @@ public class PlayerScript : MonoBehaviour
 
     void Fire()
     {
-        if (Input.GetAxis("Fire1")==1)
+        if (Input.GetAxis("Fire1") == 1)
         {
             Vector3 position = transform.position;
             position.y += 0.8f;
             position.z += 1.0f;
             Instantiate(bullet, position, Quaternion.identity);
             bulletTimer = 1;
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            gameManagerScript.GameOverStart();
+            animator.SetBool("IsRun", false);
         }
     }
 }
