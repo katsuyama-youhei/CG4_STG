@@ -38,8 +38,8 @@ public class PlayerScript : MonoBehaviour
         if ((gameManagerScript.IsGameOver()))
         {
             return;
-        }         
-        
+        }
+
         if (bulletTimer == 0)
         {
             Fire();
